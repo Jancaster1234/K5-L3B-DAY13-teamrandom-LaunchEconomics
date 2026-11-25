@@ -12,7 +12,7 @@
 | STT | Họ tên          | MSSV            | Email                      | GitHub          | Vai trò                                        |
 | --: | ----------------- | --------------- | -------------------------- | --------------- | ----------------------------------------------- |
 |   1 | Chờ tự điền   | Chờ tự điền | Chờ tự điền            | Jancaster1234   | Viết code A, B; trưởng nhóm                 |
-|   2 | Chờ tự điền   | Chờ tự điền | Chờ tự điền            | nguyenquangtiep | Kiểm số; viết code D, E1; giữ hồ sơ       |
+|   2 | Nguyễn Quang Tiệp | 2A202603946 | nguyenquangtiep175@gmail.com             | nguyenquangtiep | Kiểm số; viết code D, E1; giữ hồ sơ       |
 |   3 | Phạm Quang Dũng | 2A202603896     | phamquangdung188@gmail.com | quanggpham      | Người gắn nhãn 1                            |
 |   4 | Đặng Quang Duy   | 2A202603984 | dqduy4444@gmail.com            | duydang2k4      | Người gắn nhãn 2; chỉ số, báo cáo nhóm |
 
@@ -62,6 +62,22 @@ Mỗi thành viên tự bổ sung họ tên, MSSV, email và đóng góp có b�
 ### Bằng chứng
 
 - [Bảng lỗi và giải pháp](report/team/bang_loi.md), commit `d4fa8cb` và `69bc498`.
+
+## Nguyễn Quang Tiệp-2A202603946
+
+### Phần việc phụ trách
+
+- TV2: người kiểm số; viết code nhiệm vụ D, E1; giữ `pilot_plan.yaml` và `ho_so_launch_v0.md`; trình bày hồ sơ khi duyệt chéo.
+
+### Đóng góp cụ thể
+
+- Kiểm số A2 độc lập từ CSV: 4.373.585 ÷ 978 = 4.472 đ [simulated], khớp output của TV1.
+- Viết `nhiem_vu_d` (D1 a–e: 1.251 · 3.103 · < 1.000 · < 300 · m ≥ 299; power 0,64) và `nhiem_vu_e` (82,83% · 27,12% · 4,25%).
+- Điền `pilot_plan.yaml` (chia theo nhân viên 20 + 20, mde 6 điểm, 4 luật dừng) và hồ sơ launch v0 (7 mục, Go có điều kiện).
+
+### Bằng chứng
+
+- [Báo cáo cá nhân](report/team/2A202603946_NguyenQuangTiep.md); PR #5 (commit `505af1d`), PR #9 (commit `1534a88`, `a2965f8`).
 
 ## Đặng Quang Duy-2A202603984
 
