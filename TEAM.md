@@ -11,7 +11,7 @@
 
 | STT | Họ tên          | MSSV            | Email                      | GitHub          | Vai trò                                        |
 | --: | ----------------- | --------------- | -------------------------- | --------------- | ----------------------------------------------- |
-|   1 | Chờ tự điền   | Chờ tự điền | Chờ tự điền            | Jancaster1234   | Viết code A, B; trưởng nhóm                 |
+|   1 | Bùi Phan Thanh Phúc | 2A202603981 | thanhphuccrkh@gmail.com | Jancaster1234   | Viết code A, B; trưởng nhóm                 |
 |   2 | Nguyễn Quang Tiệp | 2A202603946 | nguyenquangtiep175@gmail.com             | nguyenquangtiep | Kiểm số; viết code D, E1; giữ hồ sơ       |
 |   3 | Phạm Quang Dũng | 2A202603896     | phamquangdung188@gmail.com | quanggpham      | Người gắn nhãn 1                            |
 |   4 | Đặng Quang Duy   | 2A202603984 | dqduy4444@gmail.com            | duydang2k4      | Người gắn nhãn 2; chỉ số, báo cáo nhóm |
@@ -94,3 +94,19 @@ Mỗi thành viên tự bổ sung họ tên, MSSV, email và đóng góp có b�
 ### Bằng chứng
 
 - [Bảng lỗi](report/team/bang_loi.md), [đặc tả chỉ số](report/team/chi_so.md) và [báo cáo nhóm](report/team/group_report.md); commit `9846ce7` (cập nhật bộ nhãn, chỉ số và báo cáo) và `6ba192b` (hoàn thiện chỉ số, báo cáo nhóm và báo cáo cá nhân).
+
+## Bùi Phan Thanh Phúc-2A202603981
+
+### Phần việc phụ trách
+
+- TV1: người viết code nhiệm vụ A, B; giữ `bang_chi_phi.md` và mục E2 của `chi_so.md`; nhóm trưởng, phân việc, soát chéo hồ sơ, chấm hồ sơ nhóm 4mems, chốt bài nộp.
+
+### Đóng góp cụ thể
+
+- Viết A1–A4, B1–B4 trong `src/lab13.py`: 4.472 đ mỗi việc thành công [simulated], gấp 16,3 lần hoá đơn; chi phí cả hệ thống 0,49×; độ nhạy làm lại +51,8%, xem lại +40,7%; xem lại 100% ra 0,98–1,03× [simulated].
+- Viết `PHAN_CONG.md` và quy trình nhánh → PR → merge; soát và sửa hồ sơ (ngày quyết định 2027-01-15, nhãn ca 13, event và ngưỡng bảng khắc phục, nhãn simulated, ngưỡng chi phí riêng hang_nang).
+- Chấm nhóm 4mems theo C6–C8 (30/30, Go có điều kiện); soạn `HOI_DAP_BAO_VE.md`.
+
+### Bằng chứng
+
+- [Báo cáo cá nhân](report/team/2A202603981_BuiPhanThanhPhuc.md); PR #2, #3, #4 (commit `40ab1ec`, `c279b67`, `16f8dec`); soát chéo PR #6, #13, #17, #22; phiếu chấm PR #19.
