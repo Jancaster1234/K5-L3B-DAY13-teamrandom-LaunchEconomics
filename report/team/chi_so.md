@@ -35,5 +35,6 @@ Viết "chỉ số trong đợt chạy thử là …", không viết "trợ lý 
 
 | Rủi ro | Tác động đã tính | Dấu hiệu theo dõi | Hành động | Người phụ trách |
 | --- | --- | --- | --- | --- |
-| ... | ... | ... | ... | ... |
-| ... | ... | ... | ... | ... |
+| Số ca làm lại tăng gấp đôi (yếu tố nhạy nhất, B1) | +51,8%: chi phí mỗi việc thành công từ 4.472 đ lên 6.787 đ [simulated] | Tỉ lệ `lam_lai` theo tuần trong phạm vi > 7%, tính từ event `staff_rework_completed` (đợt chạy thử: 4,9% = 48/982) | Thu hẹp về `noi_dia`, rà 20 trace làm lại trong 3 ngày trước khi sang bước rollout tiếp | PM trợ lý hoàn phí |
+| Phải xem lại 100% kéo dài (B4) | 11.743 đ = 0,98× của 12.000 đ; 12.415 đ = 1,03× nếu làm lại 15,3 phút/ca như cột simulated [simulated] | % yêu cầu được xem lại > 50% cuối bước rollout 0,25 hoặc phút xem lại đo thật > 5 phút/lần, tính từ event `staff_review_decision` (đợt chạy thử: 13,0% được xem lại trong phạm vi) | Giảm xem lại theo bậc khi tỉ lệ sửa + bỏ < 15% (đợt chạy thử: 21,1% = 27/128 trong phạm vi) | Trưởng nhóm CSKH |
+| Khối lượng thấp hơn dự kiến (A4) | Cố định 40 triệu đ/tháng: +1.185 đ/việc ở 45.000 yêu cầu/tháng, +2.370 đ/việc nếu còn một nửa, tức 5.784 đ = 0,48× [simulated] | Số việc thành công theo tuần < 50% kế hoạch (kế hoạch 33.750 việc/tháng ở quy mô đầy đủ) | Không mở rộng pilot, xem lại hợp đồng chi phí cố định | PM trợ lý hoàn phí |
