@@ -11,7 +11,7 @@ Nhóm teamrandom, lớp L3B; 4 thành viên và vai trò tại [TEAM.md](../../T
 ## 3. Giải pháp
 
 - A–B: tính chi phí và độ nhạy trong [bảng chi phí](bang_chi_phi.md).
-- C: phân loại 20 ca và đề xuất khắc phục trong [bảng lỗi](bang_loi.md); hai bộ nhãn trùng 17/20 ca (85%); chờ hai người thống nhất 3 ca khác nhau.
+- C: phân loại 20 ca và đề xuất khắc phục trong [bảng lỗi](bang_loi.md); hai bộ nhãn độc lập trùng 17/20 ca (85%); 3 ca lệch đã thống nhất, bảng khắc phục đủ 5 loại.
 - D: thiết kế thử nghiệm đối chứng theo nhân viên trong [kế hoạch pilot](pilot_plan.yaml).
 - E: đặc tả chỉ số trong [chỉ số](chi_so.md) và tổng hợp quyết định tại [hồ sơ launch](ho_so_launch_v0.md).
 
@@ -29,7 +29,7 @@ Vai trò của 4 thành viên tại [TEAM.md](../../TEAM.md); mỗi người c�
 
 ## 7. Hạn chế và hướng cải thiện
 
-Đợt chạy thử không có đối chứng; pilot dự kiến 20 nhân viên mỗi nhóm, power 0,64 nếu tác động thực là 5 điểm. Cần thống nhất 3 ca nhãn khác nhau, kiểm tra event và đo chi phí thực.
+Đợt chạy thử không có đối chứng; pilot dự kiến 20 nhân viên mỗi nhóm, power 0,64 nếu tác động thực là 5 điểm. Cần bật và kiểm tra event có `trace_id` trước pilot, thay phút simulated bằng phút đo thật.
 
 ## 8. Tài liệu tham khảo
 

@@ -9,8 +9,8 @@ Chỉ số trong đợt chạy thử được tính trên 1.200 yêu cầu; khô
 | Chính | Đóng trong 24 giờ và không mở lại trong 7 ngày | Số yêu cầu thỏa cả hai điều kiện / tổng yêu cầu | 82,83% (994/1.200) |
 | Dùng | Tỉ lệ bỏ qua gợi ý | Số yêu cầu có quyết định `sua` hoặc `bo` / số yêu cầu được xem lại | 27,12% (48/177) |
 | An toàn | Tỉ lệ mở lại trong 7 ngày | Số yêu cầu mở lại trong 7 ngày / tổng yêu cầu | 4,25% (51/1.200) |
-| Dùng | Tỉ lệ chấp nhận gợi ý | Số yêu cầu được xem lại có quyết định chấp nhận / số yêu cầu được xem lại | Chưa tính |
-| An toàn | Tỉ lệ lỗi phát hiện qua kiểm tra mẫu | Số yêu cầu kiểm tra mẫu có lỗi / số yêu cầu được kiểm tra mẫu mỗi tuần | Chưa tính |
+| Dùng | Nhóm tự đề xuất: % yêu cầu của nhóm trợ lý được mở bằng trợ lý | Số yêu cầu của nhân viên nhóm trợ lý có event `suggestion_shown` / tổng yêu cầu của nhân viên nhóm trợ lý (luật dừng 4 dùng ngưỡng 50%) | Không cần tính |
+| An toàn | Nhóm tự đề xuất: % đơn hoàn sai tiền qua kiểm tra mẫu hằng tuần (bắt lỗi ngầm như ca 5, 17) | Số đơn kiểm tra mẫu có số tiền hoàn lệch / số đơn được kiểm tra mẫu mỗi tuần | Không cần tính |
 
 ## Danh sách event đề xuất
 
@@ -19,19 +19,27 @@ Mỗi event mang `trace_id` và `request_id`; cần triển khai và kiểm tra 
 | Event | Ai tạo | Thuộc tính chính | Thời điểm |
 | --- | --- | --- | --- |
 | `request_created` | Hệ thống yêu cầu | `trace_id`, `request_id`, thời gian tạo, loại | Khi nhận yêu cầu |
+| `agent_run_completed` | Trợ lý | `trace_id`, `request_id`, `attempt`, `tokens_in`, `tokens_out`, `tool_calls`, `status`, phiên bản bảng giá | Sau mỗi lần chạy, kể cả lần lỗi |
 | `suggestion_generated` | Trợ lý | `trace_id`, `request_id`, mã gợi ý | Khi tạo gợi ý |
+| `suggestion_shown` | Giao diện nhân viên | `trace_id`, `request_id`, `staff_id`, `arm` | Khi nhân viên mở gợi ý của trợ lý |
 | `staff_review_decision` | Ứng dụng nhân viên | `trace_id`, `request_id`, quyết định, thời gian và thời lượng xem lại | Khi hoàn tất xem lại |
+| `input_validation_failed` | Biểu mẫu khách | `trace_id`, `request_id`, trường lỗi | Khi dữ liệu khách nhập không hợp lệ |
+| `handoff_to_staff` | Trợ lý | `trace_id`, `request_id`, `reason`, tóm tắt | Khi chuyển nhân viên |
+| `refund_ledger_write` | Dịch vụ sổ cái | `trace_id`, `request_id`, `idempotency_key`, số tiền, đích hoàn, kết quả | Khi ghi lệnh hoàn |
 | `request_closed` | Hệ thống yêu cầu | `trace_id`, `request_id`, thời gian đóng | Khi đóng yêu cầu |
-| `request_reopened` | Hệ thống yêu cầu | `trace_id`, `request_id`, thời gian mở lại | Khi mở lại |
+| `request_reopened` | Hệ thống yêu cầu | `trace_id`, `request_id`, thời gian mở lại, lý do | Khi mở lại |
 | `staff_rework_completed` | Ứng dụng nhân viên | `trace_id`, `request_id`, thời lượng làm lại | Khi hoàn tất làm lại |
 | `quality_sample_checked` | Công cụ kiểm tra chất lượng | `trace_id`, `request_id`, kết quả lỗi, thời gian kiểm tra | Khi kiểm tra mẫu |
 
 **Kiểm tra chéo:**
 
 - Chỉ số chính: `request_created`, `request_closed`, `request_reopened`; dùng thời gian tạo và đóng, kiểm tra không mở lại trong 7 ngày sau đóng.
-- Bỏ qua gợi ý và chấp nhận gợi ý: `staff_review_decision`; tử số theo quyết định, mẫu số là yêu cầu có quyết định xem lại.
+- Bỏ qua gợi ý: `staff_review_decision`; tử số là quyết định `sua` hoặc `bo`, mẫu số là yêu cầu có quyết định xem lại.
+- % yêu cầu được mở bằng trợ lý (luật dừng 4): `suggestion_shown` trên `request_created` của nhân viên nhóm trợ lý.
 - Mở lại trong 7 ngày: `request_created`, `request_closed`, `request_reopened`; đếm yêu cầu mở lại trong 7 ngày sau đóng trên tổng yêu cầu đủ thời gian theo dõi.
-- Lỗi kiểm tra mẫu: `quality_sample_checked`; đếm yêu cầu có lỗi trên yêu cầu được kiểm tra.
+- Đơn hoàn sai tiền qua kiểm tra mẫu: `quality_sample_checked`; đếm đơn có số tiền lệch trên đơn được kiểm tra.
+- Chi phí mỗi việc thành công (luật dừng 3, E2): `agent_run_completed` (token, tool), `staff_review_decision` và `staff_rework_completed` (phút đo thật), chia số yêu cầu đóng không mở lại.
+- Hoàn trùng (luật dừng 1): `refund_ledger_write`, cùng `request_id` có ≥ 2 bản ghi thành công.
 
 ## E2 · Rủi ro kinh tế
 
