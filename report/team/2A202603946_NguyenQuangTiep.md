@@ -19,7 +19,7 @@ Kiểm số A2 bằng tay; viết `nhiem_vu_d` và `nhiem_vu_e` trong `src/lab13
 - **Nhiệm vụ E1 (`nhiem_vu_e`):** ba chỉ số tính thử: chính 82,83% (994/1.200), dùng 27,12% (48/177), an toàn 4,25% (51/1.200); gửi TV4 điền `chi_so.md`.
 - **`pilot_plan.yaml`:** chia theo nhân viên 20 + 20, mde 6 điểm, phạm vi noi_dia + hang_nang; bốn luật dừng đủ NẾU – TRONG – THÌ – KHÔNG THÌ (hoàn trùng: 1 ca xác nhận là tắt trợ lý trong 30 phút); ngưỡng an toàn so với đối chứng ≥ 2 điểm, trần 6%, để không dừng ngay tuần đầu; điều kiện kết thúc, luật gia hạn tối đa đến 2027-01-29 chỉ vì thiếu dữ liệu, phân tích ở cấp nhân viên.
 - **`ho_so_launch_v0.md`:** bảy mục, mỗi mục có con số chính, trạng thái và vai trò phụ trách; đề xuất Go có điều kiện, nêu hai số bất lợi: xem lại 100% tốn 0,98×–1,03× [simulated] và power 0,64 ở mức 5 điểm.
-- Sửa lại theo góp ý soát chéo của TV1 (PR #6, #13): ngày quyết định 2027-01-15, `interim_looks`, mục 5 bảng lỗi.
+- TV1 soát chéo và sửa trực tiếp (PR #6, #13): ngày quyết định 2027-01-15, `interim_looks`, mục 5 bảng lỗi; TV2 đã đọc lại và giữ các thay đổi này.
 
 ## 4. Bằng chứng
 
