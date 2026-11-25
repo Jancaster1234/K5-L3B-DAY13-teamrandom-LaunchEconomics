@@ -15,7 +15,7 @@
 ## Quy tắc chung (cho cả người và agent)
 
 1. Chỉ sửa file mình giữ (xem bảng dưới). Riêng `src/lab13.py`: TV1 sửa `nhiem_vu_a`, `nhiem_vu_b` và các hàm A1/A2; TV2 chỉ sửa `nhiem_vu_d`, `nhiem_vu_e`.
-   **Ngoại lệ: TV1 là tech lead**, khi soát thấy lỗi thì được sửa thẳng mọi file qua PR (tên nhánh `tv1/fix-...`, mô tả PR ghi rõ đã sửa gì và vì sao). Người giữ file không sửa ngược lại; luôn `git pull origin main` trước khi làm tiếp, thấy không đồng ý thì nhắn TV1.
+   **Sửa lỗi:** ai thấy lỗi ở bất kỳ file nào cũng được sửa thẳng qua PR (tên nhánh `tv<số>/fix-...`, mô tả PR ghi rõ đã sửa gì và vì sao). Người giữ file vẫn được sửa tiếp hoặc sửa lại nếu thấy chưa đúng, cũng ghi lý do trong PR. Trước khi sửa bất kỳ file nào, luôn `git pull origin main` để làm trên bản mới nhất.
 2. Không sửa `src/logix_runs.csv`, `src/logix_requests.csv`, `src/lab13_starter.py`.
 3. Mọi con số trong hồ sơ phải lấy từ output của `python lab13.py`, chạy trong thư mục `src/`. File [docs/Lab13_Huong_dan_chi_tiet_buoi_chieu.md](docs/Lab13_Huong_dan_chi_tiet_buoi_chieu.md) chỉ dùng để đối chiếu; lệch không quá 2% là đạt. Nếu lệch hơn thì báo TV1 hoặc TV2, không chép số từ file hướng dẫn.
 4. Mọi số tính từ hai cột `_simulated` phải ghi nhãn `simulated`.
