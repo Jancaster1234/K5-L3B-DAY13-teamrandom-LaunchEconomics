@@ -18,4 +18,9 @@ Nhóm số n chấm nhóm số n + 1; nhóm cuối chấm nhóm 1. Chấm theo b
 
 **Một câu hỏi cho đội trình:** Điều kiện 3 ghi "chỉ ra quyết định khi bước 0,50 đo đủ 859 yêu cầu mỗi nhóm", nhưng `pilot_plan.yaml` ghi cần ít nhất 5.980 yêu cầu mỗi nhóm (20 người × 299). Ngưỡng ra quyết định thật là bao nhiêu, và với 2 tuần ở bước 0,50 cộng 7 ngày theo dõi mở lại, nhóm có đủ dữ liệu trước ngày quyết định 12/01/2027 không?
 
-**Câu trả lời của đội trình (ghi lại tại buổi):** Nhóm 4mems chưa có câu trả lời bằng văn bản: tính đến commit `913b24a` trong repo của họ, điều kiện 3 của hồ sơ vẫn ghi "859 yêu cầu mỗi nhóm", chưa sửa thành 5.980 yêu cầu thực tế. Nội dung trả lời miệng tại buổi: (người có mặt bổ sung).
+**Câu trả lời của đội trình (ghi lại tại buổi):** Nhóm teamrandom không ghi được lời trả lời trực tiếp tại buổi. Dưới đây là câu trả lời nhóm 4mems tự ghi bằng văn bản sau buổi trong repo của họ (commit `9606c8c`, `report/team/phieu_cham.md` và `group_report.md`), tóm tắt lại:
+
+- **Ngưỡng ra quyết định:** 5.980 yêu cầu thực tế mỗi nhóm (m ≥ 299 yêu cầu/người × 20 người); 859 là cỡ mẫu hiệu dụng = 5.980 ÷ DE 6,96, cùng một điều kiện chứ không phải hai ngưỡng. Nhóm nhận điều kiện 3 ghi 859 là mâu thuẫn với mục 6 và `pilot_plan.yaml`, và đã sửa: điều kiện 3 ở commit `84678a8` ghi cả 5.980 yêu cầu thực tế và 859 mẫu hiệu dụng.
+- **Thời gian:** nhóm không khẳng định chắc đủ dữ liệu trước 2027-01-12, vì chưa đo được lưu lượng yêu cầu mỗi nhân viên mỗi ngày; quyết định gắn vào điều kiện đủ 5.980 yêu cầu mỗi nhóm, chưa đủ thì gia hạn, không kết luận trên mẫu thiếu.
+
+**Hội đồng đánh giá câu trả lời:** Thỏa đáng. Phân biệt đúng mẫu hiệu dụng và số yêu cầu thực tế, đã sửa hồ sơ cho khớp; gắn quyết định vào điều kiện đủ mẫu thay vì ngày là cách đúng. Điểm còn mở: `decision_date` vẫn ghi 2027-01-12 và chưa có luật gia hạn có hạn chót viết trước. Điểm ba tiêu chí không đổi.
