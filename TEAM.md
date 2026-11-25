@@ -14,7 +14,7 @@
 |   1 | Chờ tự điền   | Chờ tự điền | Chờ tự điền            | Jancaster1234   | Viết code A, B; trưởng nhóm                 |
 |   2 | Nguyễn Quang Tiệp | 2A202603946 | nguyenquangtiep175@gmail.com             | nguyenquangtiep | Kiểm số; viết code D, E1; giữ hồ sơ       |
 |   3 | Phạm Quang Dũng | 2A202603896     | phamquangdung188@gmail.com | quanggpham      | Người gắn nhãn 1                            |
-|   4 | Chờ tự điền   | Chờ tự điền | Chờ tự điền            | duydang2k4      | Người gắn nhãn 2; chỉ số, báo cáo nhóm |
+|   4 | Đặng Quang Duy   | 2A202603984 | dqduy4444@gmail.com            | duydang2k4      | Người gắn nhãn 2; chỉ số, báo cáo nhóm |
 
 Bốn vai của lab:
 
@@ -79,13 +79,18 @@ Mỗi thành viên tự bổ sung họ tên, MSSV, email và đóng góp có b�
 
 - [Báo cáo cá nhân](report/team/2A202603946_NguyenQuangTiep.md); PR #5 (commit `505af1d`), PR #9 (commit `1534a88`, `a2965f8`).
 
-## duydang2k4 · TV4
+## Đặng Quang Duy-2A202603984
 
-### Phần việc và đóng góp
+### Phần việc phụ trách
 
-- Gắn nhãn 20 ca; chuẩn bị đặc tả chỉ số, event và báo cáo nhóm.
-- Bộ nhãn độc lập đã nhập vào `report/team/bang_loi.md`; hai bộ nhãn trùng 17/20 ca (85%), 3 ca lệch đã thống nhất.
+- Người gắn nhãn 2 (TV4); phụ trách đặc tả chỉ số, event và tổng hợp báo cáo nhóm.
+
+### Đóng góp cụ thể
+
+- Gắn nhãn độc lập 20 ca; khi đối chiếu với TV3, hai bộ nhãn trùng 17/20 ca (85%) và thống nhất quy tắc cho 3 ca lệch.
+- Đối chiếu 3 chỉ số tính thử, đề xuất thêm 2 chỉ số và rà soát 10 event theo 4 luật dừng trong kế hoạch pilot.
+- Tổng hợp báo cáo nhóm và chuẩn bị phiếu duyệt chéo theo thang 30 điểm; phiếu chờ hồ sơ nhóm được phân công.
 
 ### Bằng chứng
 
-- Phiếu gắn nhãn 20 ca do thành viên cung cấp; `report/team/chi_so.md` và `report/team/group_report.md`.
+- [Bảng lỗi](report/team/bang_loi.md), [đặc tả chỉ số](report/team/chi_so.md) và [báo cáo nhóm](report/team/group_report.md); commit `9846ce7` (cập nhật bộ nhãn, chỉ số và báo cáo) và `6ba192b` (hoàn thiện chỉ số, báo cáo nhóm và báo cáo cá nhân).
