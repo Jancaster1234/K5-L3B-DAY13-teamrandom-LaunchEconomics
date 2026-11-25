@@ -4,6 +4,7 @@ Không cần khoá API. Điền các chỗ ghi VIẾT Ở ĐÂY (đánh dấu TO
 Bản gốc chưa sửa nằm ở lab13_starter.py.
 """
 import math
+import sys
 import pandas as pd
 
 # Bảng giá GIẢ ĐỊNH của lab (không phải giá thật của nhà cung cấp nào)
@@ -19,17 +20,21 @@ BASELINE = 12000    # đồng cho 1 yêu cầu khi nhân viên tự làm (6 phú
 def so_lan_chay_ky_vong(p, k=None):
     """Số lần chạy trung bình cho 1 yêu cầu khi mỗi lần đúng với xác suất p.
     k = số lần chạy tối đa; k=None nghĩa là chạy lại đến khi đúng."""
-    raise NotImplementedError('VIẾT Ở ĐÂY')
+    if k is None:
+        return 1 / p
+    return (1 - (1 - p) ** k) / p
 
 
 def ti_le_thanh_cong(p, k=None):
     """Xác suất yêu cầu thành công sau tối đa k lần chạy."""
-    raise NotImplementedError('VIẾT Ở ĐÂY')
+    if k is None:
+        return 1.0
+    return 1 - (1 - p) ** k
 
 
 def he_so_chi_phi_moi_viec_thanh_cong(p, k=None):
     """Chi phí mỗi việc thành công, tính bằng bội số của giá một lần chạy."""
-    raise NotImplementedError('VIẾT Ở ĐÂY')
+    return so_lan_chay_ky_vong(p, k) / ti_le_thanh_cong(p, k)
 
 
 def kiem_tra_dap_an_biet_truoc():
@@ -53,15 +58,37 @@ def mo_hinh(runs, reqs, gia_vao=26, gia_ra=130, gia_tool=15, luong_phut=2000,
     raise NotImplementedError('VIẾT Ở ĐÂY')
 
 
+# ---------- Nhiệm vụ A2–A4 · TV1 ----------
+def nhiem_vu_a(runs, reqs):
+    """TV1 · A2 bảng chi phí, A3 tách theo loai, A4 chi phí cố định."""
+    pass
+
+
+# ---------- Nhiệm vụ B · TV1 ----------
+def nhiem_vu_b(runs, reqs):
+    """TV1 · B1 đổi từng yếu tố, B2 đổi một cặp, B3 giới hạn số lần chạy, B4 xem lại 100%."""
+    pass
+
+
+# ---------- Nhiệm vụ D · TV2 ----------
+def nhiem_vu_d(reqs):
+    """TV2 · D1 cỡ mẫu (a–e), power ở mức chênh 5 điểm, tỉ lệ mở lại 7 ngày hiện tại."""
+    # from statsmodels.stats.power import NormalIndPower
+    pass
+
+
+# ---------- Nhiệm vụ E1 · TV2 ----------
+def nhiem_vu_e(reqs):
+    """TV2 · E1 ba chỉ số tính thử: chính, dùng, an toàn."""
+    pass
+
+
 if __name__ == '__main__':
+    sys.stdout.reconfigure(encoding='utf-8')  # để console Windows in được tiếng Việt
     runs = pd.read_csv('logix_runs.csv')
     reqs = pd.read_csv('logix_requests.csv', keep_default_na=False)
     kiem_tra_dap_an_biet_truoc()
-    ket_qua = mo_hinh(runs, reqs)
-    for ten, gia_tri in ket_qua.items():
-        print(f'{ten:12s} {gia_tri:>14,.0f}')
-    # TODO CP1 · Nhiệm vụ A3: tính lại theo từng giá trị của cột loai.
-    # TODO CP2 · Nhiệm vụ B: đổi từng yếu tố, ghi vào bảng độ nhạy.
-    # TODO CP4 · Nhiệm vụ D: cỡ mẫu.
-    #   from statsmodels.stats.proportion import proportion_effectsize
-    #   from statsmodels.stats.power import NormalIndPower
+    nhiem_vu_a(runs, reqs)
+    nhiem_vu_b(runs, reqs)
+    nhiem_vu_d(reqs)
+    nhiem_vu_e(reqs)
