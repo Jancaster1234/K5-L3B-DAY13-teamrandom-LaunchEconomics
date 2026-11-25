@@ -2,42 +2,44 @@
 
 ## E1 · Đặc tả chỉ số
 
-Chỉ số chính trong đợt chạy thử là 82,83% (994/1.200 yêu cầu). Đợt chạy thử thiếu nhóm đối chứng nên chưa thể ước lượng tác động của trợ lý. Nguồn số liệu là phần E1 của `python lab13.py` chạy trong `src/`.
+Chỉ số trong đợt chạy thử được tính trên 1.200 yêu cầu; không có nhóm đối chứng để suy ra tác động.
 
 | Loại | Chỉ số | Công thức | Kết quả đợt chạy thử |
 | --- | --- | --- | --- |
 | Chính | Đóng trong 24 giờ và không mở lại trong 7 ngày | Số yêu cầu thỏa cả hai điều kiện / tổng yêu cầu | 82,83% (994/1.200) |
-| Dùng | Tỉ lệ bỏ qua gợi ý | Số yêu cầu được xem lại có quyết định cuối là `sua` hoặc `bo` / số yêu cầu được xem lại | 27,12% (48/177) |
+| Dùng | Tỉ lệ bỏ qua gợi ý | Số yêu cầu có quyết định `sua` hoặc `bo` / số yêu cầu được xem lại | 27,12% (48/177) |
 | An toàn | Tỉ lệ mở lại trong 7 ngày | Số yêu cầu mở lại trong 7 ngày / tổng yêu cầu | 4,25% (51/1.200) |
-| Dùng (đề xuất) | Tỉ lệ yêu cầu được mở bằng trợ lý | Số yêu cầu trong phạm vi của nhóm trợ lý có ít nhất 1 lượt mở bằng trợ lý / tổng yêu cầu trong phạm vi được giao cho nhóm trợ lý trong tuần | Đo trong pilot, dùng ngưỡng 50% của kế hoạch pilot |
-| An toàn (đề xuất) | Tỉ lệ hoàn sai số tiền qua kiểm tra mẫu hằng tuần | Số yêu cầu có số tiền hoàn thực tế lệch số tiền đúng / tổng yêu cầu đã kiểm tra trong tuần | Đo trong pilot để phát hiện lỗi ngầm |
+| Dùng | Nhóm tự đề xuất: % yêu cầu của nhóm trợ lý được mở bằng trợ lý | Số yêu cầu của nhân viên nhóm trợ lý có event `suggestion_shown` / tổng yêu cầu của nhân viên nhóm trợ lý (luật dừng 4 dùng ngưỡng 50%) | Không cần tính |
+| An toàn | Nhóm tự đề xuất: % đơn hoàn sai tiền qua kiểm tra mẫu hằng tuần (bắt lỗi ngầm như ca 5, 17) | Số đơn kiểm tra mẫu có số tiền hoàn lệch / số đơn được kiểm tra mẫu mỗi tuần | Không cần tính |
 
 ## Danh sách event đề xuất
 
-Mỗi event có `trace_id` để đối soát đường đi và `request_id` để nối các lần chạy của cùng một yêu cầu. Mỗi tỷ lệ đếm yêu cầu duy nhất. Chờ đủ 7 ngày theo dõi theo kế hoạch pilot trước khi tính chỉ số kết quả.
+Mỗi event mang `trace_id` và `request_id`; cần triển khai và kiểm tra dữ liệu trước khi đo. Đếm yêu cầu duy nhất, đối chiếu mốc 24 giờ và theo dõi đủ 7 ngày; yêu cầu chưa đủ thời gian theo dõi không đưa vào mẫu kết quả đã trưởng thành.
 
 | Event | Ai tạo | Thuộc tính chính | Thời điểm |
 | --- | --- | --- | --- |
-| `request_created` | Hệ thống yêu cầu | `trace_id`, `request_id`, thời gian tạo, loại, `staff_id`, nhóm được phân, bước mở rộng | Khi tiếp nhận và đã ghi nhận phân nhóm |
-| `assistant_request_opened` | Ứng dụng nhân viên | `trace_id`, `request_id`, `staff_id`, thời gian mở | Khi nhân viên mở yêu cầu bằng trợ lý |
-| `agent_run_completed` | Trợ lý | `trace_id`, `request_id`, lần chạy, số token vào/ra, số lượt gọi công cụ, trạng thái | Sau mỗi lần chạy, kể cả lần lỗi |
-| `staff_review_decision` | Ứng dụng nhân viên | `trace_id`, `request_id`, quyết định `giu`/`sua`/`bo`, thời gian và số phút xem lại đo thực tế | Khi hoàn tất xem lại |
+| `request_created` | Hệ thống yêu cầu | `trace_id`, `request_id`, thời gian tạo, loại | Khi nhận yêu cầu |
+| `agent_run_completed` | Trợ lý | `trace_id`, `request_id`, `attempt`, `tokens_in`, `tokens_out`, `tool_calls`, `status`, phiên bản bảng giá | Sau mỗi lần chạy, kể cả lần lỗi |
+| `suggestion_generated` | Trợ lý | `trace_id`, `request_id`, mã gợi ý | Khi tạo gợi ý |
+| `suggestion_shown` | Giao diện nhân viên | `trace_id`, `request_id`, `staff_id`, `arm` | Khi nhân viên mở gợi ý của trợ lý |
+| `staff_review_decision` | Ứng dụng nhân viên | `trace_id`, `request_id`, quyết định, thời gian và thời lượng xem lại | Khi hoàn tất xem lại |
+| `input_validation_failed` | Biểu mẫu khách | `trace_id`, `request_id`, trường lỗi | Khi dữ liệu khách nhập không hợp lệ |
+| `handoff_to_staff` | Trợ lý | `trace_id`, `request_id`, `reason`, tóm tắt | Khi chuyển nhân viên |
+| `refund_ledger_write` | Dịch vụ sổ cái | `trace_id`, `request_id`, `idempotency_key`, số tiền, đích hoàn, kết quả | Khi ghi lệnh hoàn |
 | `request_closed` | Hệ thống yêu cầu | `trace_id`, `request_id`, thời gian đóng | Khi đóng yêu cầu |
-| `request_reopened` | Hệ thống yêu cầu | `trace_id`, `request_id`, thời gian mở lại | Khi mở lại |
-| `staff_rework_completed` | Ứng dụng nhân viên | `trace_id`, `request_id`, số phút làm lại đo thực tế | Khi hoàn tất làm lại |
-| `refund_ledger_write` | Dịch vụ sổ cái | `trace_id`, `request_id`, mã nghĩa vụ hoàn phí, khóa chống trùng, mã giao dịch, số tiền, kết quả ghi sổ | Sau mỗi lần ghi sổ |
-| `request_outcome_recorded` | Hệ thống yêu cầu | `trace_id`, `request_id`, thời gian, kết quả cuối của trợ lý | Khi chốt kết quả xử lý |
-| `quality_sample_checked` | Kế toán | `trace_id`, `request_id`, số tiền hoàn thực tế, số tiền đúng, thời gian kiểm tra | Khi kiểm tra yêu cầu được lấy mẫu hằng tuần |
+| `request_reopened` | Hệ thống yêu cầu | `trace_id`, `request_id`, thời gian mở lại, lý do | Khi mở lại |
+| `staff_rework_completed` | Ứng dụng nhân viên | `trace_id`, `request_id`, thời lượng làm lại | Khi hoàn tất làm lại |
+| `quality_sample_checked` | Công cụ kiểm tra chất lượng | `trace_id`, `request_id`, kết quả lỗi, thời gian kiểm tra | Khi kiểm tra mẫu |
 
 **Kiểm tra chéo:**
 
 - Chỉ số chính: `request_created`, `request_closed`, `request_reopened`; dùng thời gian tạo và đóng, kiểm tra không mở lại trong 7 ngày sau đóng.
-- Bỏ qua gợi ý: `staff_review_decision`; lấy quyết định cuối của mỗi yêu cầu được xem lại, đếm `sua` hoặc `bo`.
+- Bỏ qua gợi ý: `staff_review_decision`; tử số là quyết định `sua` hoặc `bo`, mẫu số là yêu cầu có quyết định xem lại.
+- % yêu cầu được mở bằng trợ lý (luật dừng 4): `suggestion_shown` trên `request_created` của nhân viên nhóm trợ lý.
 - Mở lại trong 7 ngày: `request_created`, `request_closed`, `request_reopened`; đếm yêu cầu mở lại trong 7 ngày sau đóng trên tổng yêu cầu đủ thời gian theo dõi.
-- Mở bằng trợ lý: `request_created` xác định yêu cầu được giao trong tuần cho nhóm trợ lý và đúng phạm vi. Nối với `assistant_request_opened` để đếm mỗi yêu cầu đã mở một lần.
-- Hoàn sai số tiền: `quality_sample_checked`; so số tiền thực tế với số tiền đúng rồi đếm số yêu cầu lệch trong mẫu tuần.
-- Hoàn tiền trùng: `refund_ledger_write`; đối soát khi 1 nghĩa vụ hoàn phí có từ 2 mã giao dịch ghi sổ thành công.
-- Chi phí mỗi việc thành công: cộng token và lượt gọi công cụ từ `agent_run_completed`, phút thực tế từ `staff_review_decision` và `staff_rework_completed`. Chia cho số yêu cầu thành công từ `request_outcome_recorded`.
+- Đơn hoàn sai tiền qua kiểm tra mẫu: `quality_sample_checked`; đếm đơn có số tiền lệch trên đơn được kiểm tra.
+- Chi phí mỗi việc thành công (luật dừng 3, E2): `agent_run_completed` (token, tool), `staff_review_decision` và `staff_rework_completed` (phút đo thật), chia số yêu cầu đóng không mở lại.
+- Hoàn trùng (luật dừng 1): `refund_ledger_write`, cùng `request_id` có ≥ 2 bản ghi thành công.
 
 ## E2 · Rủi ro kinh tế
 
