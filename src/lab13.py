@@ -55,13 +55,78 @@ def mo_hinh(runs, reqs, gia_vao=26, gia_ra=130, gia_tool=15, luong_phut=2000,
     - thanh_cong: số yêu cầu có ket_qua == 'thanh_cong'.
     - Các tham số giá/hệ số/max_lan_chay dùng cho Nhiệm vụ B (độ nhạy, giới hạn số lần chạy); giữ mặc định ở A2.
     """
-    raise NotImplementedError('VIẾT Ở ĐÂY')
+    reqs = reqs.copy()
+    runs = runs[runs['request_id'].isin(reqs['request_id'])]
+    if max_lan_chay is not None:
+        # Bỏ các lần chạy vượt giới hạn; yêu cầu cần nhiều lần hơn coi như chuyển nhân viên, 0 phút xem lại/làm lại.
+        runs = runs[runs['attempt'] <= max_lan_chay]
+        vuot = reqs['so_lan_chay'] > max_lan_chay
+        reqs.loc[vuot, 'ket_qua'] = 'chuyen_nhan_vien'
+        reqs.loc[vuot, ['phut_xem_lai_simulated', 'phut_lam_lai_simulated']] = 0
+    tien_token = runs['tokens_in'] / 1000 * gia_vao + runs['tokens_out'] / 1000 * gia_ra
+    tien_tool = runs['tool_calls'] * gia_tool
+    xem_lai = reqs['phut_xem_lai_simulated'].sum() * luong_phut * he_so_xem_lai
+    lam_lai = reqs['phut_lam_lai_simulated'].sum() * luong_phut * he_so_lam_lai
+    token, tool = tien_token.sum(), tien_tool.sum()
+    tong = token + tool + xem_lai + lam_lai          # tử số: MỌI lần chạy, kể cả lần lỗi
+    thanh_cong = int((reqs['ket_qua'] == 'thanh_cong').sum())  # mẫu số: chỉ việc thành công
+    return dict(token=token, tool=tool,
+                chay_lai=(tien_token + tien_tool)[runs['attempt'] > 1].sum(),
+                xem_lai=xem_lai, lam_lai=lam_lai, tong=tong,
+                thanh_cong=thanh_cong, cps=tong / thanh_cong,
+                hoa_don_moi_yc=(token + tool) / len(reqs))
 
 
 # ---------- Nhiệm vụ A2–A4 · TV1 ----------
+CHI_PHI_CO_DINH = 40_000_000   # đồng / tháng
+YC_MOI_THANG = 45_000          # yêu cầu hoàn phí / tháng ở quy mô đầy đủ
+PHAM_VI = ['noi_dia', 'hang_nang']
+
+
 def nhiem_vu_a(runs, reqs):
     """TV1 · A2 bảng chi phí, A3 tách theo loai, A4 chi phí cố định."""
-    pass
+    # A2
+    kq = mo_hinh(runs, reqs)
+    print('\n=== A2 · Mô hình chi phí từ trace (xem_lai, lam_lai, tong, cps: simulated) ===')
+    for ten, gia_tri in kq.items():
+        print(f'{ten:16s} {gia_tri:>14,.1f}')
+    print(f'Tool: {runs["tool_calls"].sum():,} lần gọi · xem lại: {reqs["phut_xem_lai_simulated"].sum():,} phút'
+          f' · làm lại: {reqs["phut_lam_lai_simulated"].sum():,} phút')
+    print(f'cps / hoá đơn mỗi yêu cầu = {kq["cps"] / kq["hoa_don_moi_yc"]:.1f} lần')
+    for k in ['token', 'tool', 'xem_lai', 'lam_lai']:
+        print(f'  tỉ trọng {k:8s} {kq[k] / kq["tong"] * 100:5.1f}%')
+    print(f'  giờ nhân viên (xem lại + làm lại) {(kq["xem_lai"] + kq["lam_lai"]) / kq["tong"] * 100:5.1f}%')
+    khong_tc = len(reqs) - kq['thanh_cong']
+    he_thong = (kq['tong'] + khong_tc * BASELINE) / len(reqs)
+    print(f'Chi phí cả hệ thống mỗi yêu cầu = ({kq["tong"]:,.0f} + {khong_tc} × {BASELINE:,}) / {len(reqs)}'
+          f' = {he_thong:,.0f} đ = {he_thong / BASELINE:.2f}× (simulated)')
+
+    # A3
+    print('\n=== A3 · Theo loại yêu cầu (cps: simulated) ===')
+    print(f'{"loai":10s} {"so_yc":>6s} {"ti_le_tc":>9s} {"lan/yc":>7s} {"cps":>9s} {"so 12k":>7s}')
+    for loai in ['noi_dia', 'hang_nang', 'quoc_te', 'doi_tac']:
+        r = reqs[reqs['loai'] == loai]
+        k = mo_hinh(runs, r)
+        so_lan = runs['request_id'].isin(r['request_id']).sum() / len(r)
+        print(f'{loai:10s} {len(r):6d} {k["thanh_cong"] / len(r) * 100:8.1f}% {so_lan:7.2f}'
+              f' {k["cps"]:9,.0f} {k["cps"] / BASELINE:6.2f}×')
+    ok = runs.merge(reqs[['request_id', 'loai']], on='request_id')
+    ok['ok'] = (ok['status'] == 'ok').astype(float)
+    print('Tỉ lệ lần chạy ok theo loai × attempt (%):')
+    print((ok.pivot_table(index='loai', columns='attempt', values='ok', aggfunc='mean') * 100).round(1))
+
+    # A4
+    print('\n=== A4 · Chi phí cố định, phạm vi noi_dia + hang_nang (simulated) ===')
+    pv = mo_hinh(runs, reqs[reqs['loai'].isin(PHAM_VI)])
+    cps_pv = pv['tong'] / pv['thanh_cong']
+    print(f'Phạm vi: {pv["thanh_cong"]} việc thành công / {len(reqs)} yêu cầu mẫu; cps phạm vi = '
+          f'{pv["tong"]:,.0f} / {pv["thanh_cong"]} = {cps_pv:,.0f} đ')
+    for nhan, he_so in [('45.000 yc/tháng', 1.0), ('Một nửa khối lượng', 0.5)]:
+        tc_thang = YC_MOI_THANG * he_so * pv['thanh_cong'] / len(reqs)
+        co_dinh = CHI_PHI_CO_DINH / tc_thang
+        print(f'{nhan:20s} việc TC/tháng {tc_thang:>9,.0f} · cố định/việc {co_dinh:>6,.0f} đ'
+              f' · cps + cố định {cps_pv + co_dinh:>6,.0f} đ = {(cps_pv + co_dinh) / BASELINE:.2f}×')
+    return kq
 
 
 # ---------- Nhiệm vụ B · TV1 ----------
