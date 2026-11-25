@@ -93,4 +93,4 @@ Mỗi thành viên tự bổ sung họ tên, MSSV, email và đóng góp có b�
 
 ### Bằng chứng
 
-- [Bảng lỗi](report/team/bang_loi.md), [đặc tả chỉ số](report/team/chi_so.md) và [báo cáo nhóm](report/team/group_report.md).
+- [Bảng lỗi](report/team/bang_loi.md), [đặc tả chỉ số](report/team/chi_so.md) và [báo cáo nhóm](report/team/group_report.md); commit `9846ce7` (cập nhật bộ nhãn, chỉ số và báo cáo) và `6ba192b` (hoàn thiện chỉ số, báo cáo nhóm và báo cáo cá nhân).
