@@ -18,4 +18,4 @@ Nhóm số n chấm nhóm số n + 1; nhóm cuối chấm nhóm 1. Chấm theo b
 
 **Một câu hỏi cho đội trình:** Điều kiện 3 ghi "chỉ ra quyết định khi bước 0,50 đo đủ 859 yêu cầu mỗi nhóm", nhưng `pilot_plan.yaml` ghi cần ít nhất 5.980 yêu cầu mỗi nhóm (20 người × 299). Ngưỡng ra quyết định thật là bao nhiêu, và với 2 tuần ở bước 0,50 cộng 7 ngày theo dõi mở lại, nhóm có đủ dữ liệu trước ngày quyết định 12/01/2027 không?
 
-**Câu trả lời của đội trình (ghi lại tại buổi):** (TV4 ghi tại buổi duyệt chéo)
+**Câu trả lời của đội trình (ghi lại tại buổi):** Nhóm 4mems chưa có câu trả lời bằng văn bản: tính đến commit `913b24a` trong repo của họ, điều kiện 3 của hồ sơ vẫn ghi "859 yêu cầu mỗi nhóm", chưa sửa thành 5.980 yêu cầu thực tế. Nội dung trả lời miệng tại buổi: (người có mặt bổ sung).
