@@ -16,7 +16,7 @@ Mọi số lấy từ output `python lab13.py` (chạy trong `src/`); chi tiết
 | 6 · Pilot plan | Chia theo nhân viên 20 + 20 (20 cụm mỗi nhóm), mde 6 điểm: 859 hiệu dụng = 5.980 yêu cầu thực tế mỗi nhóm (m ≥ 299, DE 6,96); 4 luật dừng có ngưỡng, thời hạn, người có quyền dừng (hoàn trùng: tắt ngay); quyết định 2027-01-15 khi đủ mẫu và đủ 7 ngày theo dõi, gia hạn tối đa đến 2027-01-29; phân tích ở cấp nhân viên, phân tầng theo depot. **Bất lợi:** power chỉ 0,64 nếu tác động thật là 5 điểm | Xong, có bằng chứng | Giám đốc vận hành |
 | 7 · Rủi ro kinh tế | Làm lại gấp đôi → 6.787 đ (+51,8%); khối lượng còn một nửa → cố định +2.370 đ/việc, tổng 5.784 đ = 0,48× [simulated] | Giả lập | PM trợ lý hoàn phí |
 
-**Đề xuất: Go có điều kiện** cho pilot noi_dia + hang_nang (982/1.200 yêu cầu mẫu, 3.414 đ/việc thành công chưa cộng cố định [simulated]); loại quoc_te (1,88×) và doi_tac (0,85×).
+**Đề xuất: Go có điều kiện** cho pilot noi_dia + hang_nang (982/1.200 yêu cầu mẫu, 3.414 đ/việc thành công chưa cộng cố định [simulated]); loại quoc_te (1,88× so với 12.000 đ [simulated], thành công 27,3%, chạy lại không giúp: lần 1 đúng 30,0%, lần 3 chỉ 2,2%) và doi_tac (0,85× [simulated], thành công 54,4%, điều khoản riêng).
 
 Phương án đề xuất của kế hoạch pilot, chưa có phê duyệt của doanh nghiệp. Trước ngày bắt đầu 2026-12-07:
 
