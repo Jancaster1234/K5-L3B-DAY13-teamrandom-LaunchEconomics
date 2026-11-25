@@ -2,19 +2,19 @@
 
 ## Thông tin nhóm
 
-- Tên nhóm:
-- Lớp: L3A hoặc L3B
-- Repo nhóm: `K5-L3A-DAY13-TenNhom-LaunchEconomics` (xem [SUBMISSION.md](SUBMISSION.md))
-- URL repo, nhánh nộp, commit chốt:
+- Tên nhóm: teamrandom
+- Lớp: L3B
+- Repo nhóm: `K5-L3B-DAY13-teamrandom-LaunchEconomics`
+- URL repo: https://github.com/Jancaster1234/K5-L3B-DAY13-teamrandom-LaunchEconomics · Nhánh nộp và commit chốt: chờ nhóm trưởng xác nhận
 
 ## Thành viên
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 |        |      |       |        |         |
-|   2 |        |      |       |        |         |
-|   3 |        |      |       |        |         |
-|   4 |        |      |       |        |         |
+| 1 | Chờ tự điền | Chờ tự điền | Chờ tự điền | Jancaster1234 | Viết code A, B; trưởng nhóm |
+| 2 | Chờ tự điền | Chờ tự điền | Chờ tự điền | nguyenquangtiep | Kiểm số; viết code D, E1; giữ hồ sơ |
+| 3 | Chờ tự điền | Chờ tự điền | Chờ tự điền | quanggpham | Người gắn nhãn 1 |
+| 4 | Chờ tự điền | Chờ tự điền | Chờ tự điền | duydang2k4 | Người gắn nhãn 2; chỉ số, báo cáo nhóm |
 
 Bốn vai của lab:
 
@@ -50,3 +50,16 @@ Sao chép mục dưới đây cho từng thành viên.
 ### Bằng chứng
 
 -
+
+Mỗi thành viên tự bổ sung họ tên, MSSV, email và đóng góp có bằng chứng; commit chốt do trưởng nhóm xác nhận.
+
+## duydang2k4 · TV4
+
+### Phần việc và đóng góp
+
+- Gắn nhãn 20 ca; chuẩn bị đặc tả chỉ số, event và báo cáo nhóm.
+- Bộ nhãn đã được cung cấp, chờ gửi TV3 nhập và đối chiếu; chưa có tỉ lệ đồng thuận.
+
+### Bằng chứng
+
+- Phiếu gắn nhãn 20 ca do thành viên cung cấp; `report/team/chi_so.md` và `report/team/group_report.md`.

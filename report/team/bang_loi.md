@@ -4,32 +4,32 @@
 
 ## Hai bộ nhãn độc lập
 
-Người gắn nhãn 1: Phạm Quang Dũng · Người gắn nhãn 2: ... (gắn trong 8 phút, không trao đổi)
+Người gắn nhãn 1: Phạm Quang Dũng · Người gắn nhãn 2: duydang2k4 (theo phiếu do thành viên cung cấp)
 
-| Ca | Nhãn người 1       | Nhãn người 2 | Trùng? | Nhãn thống nhất |
-| -: | --------------------- | --------------- | ------- | ------------------ |
-|  1 | Do người dùng      | ...             | ...     | ...                |
-|  2 | Hệ thống            | ...             | ...     | ...                |
-|  3 | Giới hạn hệ thống | ...             | ...     | ...                |
-|  4 | Giới hạn hệ thống | ...             | ...     | ...                |
-|  5 | Ngầm                 | ...             | ...     | ...                |
-|  6 | Do người dùng      | ...             | ...     | ...                |
-|  7 | Hệ thống            | ...             | ...     | ...                |
-|  8 | Hệ thống            | ...             | ...     | ...                |
-|  9 | Do người dùng      | ...             | ...     | ...                |
-| 10 | Ngữ cảnh            | ...             | ...     | ...                |
-| 11 | Giới hạn hệ thống | ...             | ...     | ...                |
-| 12 | Ngầm                 | ...             | ...     | ...                |
-| 13 | Ngữ cảnh            | ...             | ...     | ...                |
-| 14 | Do người dùng      | ...             | ...     | ...                |
-| 15 | Hệ thống            | ...             | ...     | ...                |
-| 16 | Ngữ cảnh            | ...             | ...     | ...                |
-| 17 | Ngầm                 | ...             | ...     | ...                |
-| 18 | Ngữ cảnh            | ...             | ...     | ...                |
-| 19 | Ngầm                 | ...             | ...     | ...                |
-| 20 | Hệ thống            | ...             | ...     | ...                |
+| Ca | Nhãn người 1 | Nhãn người 2 | Trùng? | Nhãn thống nhất |
+| --: | --- | --- | --- | --- |
+| 1 | Do người dùng | Do người dùng | Có | ... |
+| 2 | Hệ thống | Hệ thống | Có | ... |
+| 3 | Giới hạn hệ thống | Ngữ cảnh | Không | ... |
+| 4 | Giới hạn hệ thống | Giới hạn hệ thống | Có | ... |
+| 5 | Ngầm | Ngầm | Có | ... |
+| 6 | Do người dùng | Do người dùng | Có | ... |
+| 7 | Hệ thống | Hệ thống | Có | ... |
+| 8 | Hệ thống | Hệ thống | Có | ... |
+| 9 | Do người dùng | Do người dùng | Có | ... |
+| 10 | Ngữ cảnh | Ngữ cảnh | Có | ... |
+| 11 | Giới hạn hệ thống | Giới hạn hệ thống | Có | ... |
+| 12 | Ngầm | Ngầm | Có | ... |
+| 13 | Ngữ cảnh | Hệ thống | Không | ... |
+| 14 | Do người dùng | Do người dùng | Có | ... |
+| 15 | Hệ thống | Hệ thống | Có | ... |
+| 16 | Ngữ cảnh | Ngữ cảnh | Có | ... |
+| 17 | Ngầm | Ngầm | Có | ... |
+| 18 | Ngữ cảnh | Ngữ cảnh | Có | ... |
+| 19 | Ngầm | Giới hạn hệ thống | Không | ... |
+| 20 | Hệ thống | Hệ thống | Có | ... |
 
-**Tỉ lệ đồng thuận:** ... / 20 = ...%
+**Tỉ lệ đồng thuận:** 17 / 20 = 85%
 
 ## Quy tắc phân biệt cho các ca không trùng
 
