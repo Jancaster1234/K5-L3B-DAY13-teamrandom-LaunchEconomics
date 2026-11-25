@@ -40,7 +40,7 @@ Viết `src/lab13.py` phần A1–A4 và B1–B4, điền `report/team/bang_chi_
   - So từng số A2, A3, A4, B1–B4 với bảng đối chiếu trong file hướng dẫn, lệch không quá 2%.
   - Kiểm tính chất tuyến tính: kịch bản "giảm một nửa" làm chi phí giảm đúng nửa mức tăng của "gấp đôi" (40,7% → 20,3%).
   - Đối chiếu với phần kiểm số tay của TV2 (`kiem_so_a2_NguyenQuangTiep.md`, 4.472 đ).
-  - Mỗi lần sửa hồ sơ: `yaml.safe_load` đọc được `pilot_plan.yaml`, không còn dấu `?`, quét không có từ bị cấm ở quy tắc 5 của `README.md` và chữ "cả đội".
+  - Mỗi lần sửa hồ sơ: `yaml.safe_load` đọc được `pilot_plan.yaml`, không còn dấu `?`, quét không có từ bị cấm ở quy tắc 5 của `README.md`, và mọi người phụ trách là một vai trò cụ thể.
 - Không dùng AI để gắn nhãn 20 ca lỗi (phần đó do TV3, TV4 gắn độc lập). Điểm và lý do trong phiếu chấm nhóm 4mems lấy từ số trong hồ sơ của họ; nhóm đọc lại trước khi nộp.
 
 ## 6. Tự đánh giá
