@@ -132,7 +132,60 @@ def nhiem_vu_a(runs, reqs):
 # ---------- Nhiệm vụ B · TV1 ----------
 def nhiem_vu_b(runs, reqs):
     """TV1 · B1 đổi từng yếu tố, B2 đổi một cặp, B3 giới hạn số lần chạy, B4 xem lại 100%."""
-    pass
+    goc = mo_hinh(runs, reqs)['cps']
+
+    # B1
+    print('\n=== B1 · Đổi từng yếu tố (cps: simulated) ===')
+    kich_ban = {
+        'Giá token gấp đôi': dict(gia_vao=52, gia_ra=260),
+        'Giá token giảm một nửa': dict(gia_vao=13, gia_ra=65),
+        'Xem lại gấp đôi': dict(he_so_xem_lai=2),
+        'Xem lại giảm một nửa': dict(he_so_xem_lai=0.5),
+        'Làm lại gấp đôi': dict(he_so_lam_lai=2),
+        'Làm lại giảm một nửa': dict(he_so_lam_lai=0.5),
+        'Lương tăng 25%': dict(luong_phut=2500),
+        'Tối đa 2 lần chạy': dict(max_lan_chay=2),
+        'Chỉ 1 lần chạy': dict(max_lan_chay=1),
+    }
+    print(f'{"Gốc (A2)":25s} {goc:8,.0f}')
+    for ten, kw in kich_ban.items():
+        cps = mo_hinh(runs, reqs, **kw)['cps']
+        print(f'{ten:25s} {cps:8,.0f} {(cps / goc - 1) * 100:+6.1f}%')
+
+    # B2
+    cap = mo_hinh(runs, reqs, gia_vao=52, gia_ra=260, he_so_xem_lai=2)['cps']
+    print(f'\n=== B2 · Token gấp đôi + xem lại gấp đôi: {cap:,.0f} đ ({(cap / goc - 1) * 100:+.1f}%) (simulated) ===')
+
+    # B3
+    print('\n=== B3 · Giới hạn số lần chạy, chi phí cả hệ thống (simulated) ===')
+    print(f'{"gioi_han":>8s} {"tong_tro_ly":>12s} {"khong_tc":>9s} {"ca_he_thong":>12s} {"cps":>7s}')
+    for k in [1, 2, 3]:
+        kq = mo_hinh(runs, reqs, max_lan_chay=k)
+        khong_tc = len(reqs) - kq['thanh_cong']
+        print(f'{k:8d} {kq["tong"]:12,.0f} {khong_tc:9d} {kq["tong"] + khong_tc * BASELINE:12,.0f} {kq["cps"]:7,.0f}')
+
+    # B4: xem lại 100% trong phạm vi noi_dia + hang_nang
+    print('\n=== B4 · Xem lại 100%, phạm vi noi_dia + hang_nang (simulated) ===')
+    pv = reqs[reqs['loai'].isin(PHAM_VI)]
+    r_pv = runs[runs['request_id'].isin(pv['request_id'])]
+    co_ok = r_pv.loc[r_pv['status'] == 'ok', 'request_id'].nunique()
+    so_lam_lai = int((pv['ket_qua'] == 'lam_lai').sum())
+    tc = int((pv['ket_qua'] == 'thanh_cong').sum())
+    token_tool = (r_pv['tokens_in'] / 1000 * GIA_VAO + r_pv['tokens_out'] / 1000 * GIA_RA
+                  + r_pv['tool_calls'] * GIA_TOOL).sum()
+    phut_lam_lai_tb = reqs.loc[reqs['ket_qua'] == 'lam_lai', 'phut_lam_lai_simulated'].mean()
+    print(f'{len(pv)} yêu cầu · {co_ok} có ít nhất một lần ok · {so_lam_lai} ca làm lại · {tc} việc thành công'
+          f' · token + tool {token_tool:,.0f} đ')
+    for phut_lam_lai in [9, round(phut_lam_lai_tb, 1)]:
+        xem = co_ok * 5 * LUONG_PHUT
+        lam = so_lam_lai * phut_lam_lai * LUONG_PHUT
+        tong = xem + lam + token_tool
+        hoa_von = (BASELINE * tc - token_tool - lam) / (co_ok * LUONG_PHUT)
+        print(f'làm lại {phut_lam_lai:4} phút/ca: xem {xem:,.0f} + làm lại {lam:,.0f} + token/tool {token_tool:,.0f}'
+              f' = {tong:,.0f} đ → {tong / tc:,.0f} đ/việc = {tong / tc / BASELINE:.2f}×'
+              f' · hoà vốn khi xem lại ≤ {hoa_von:.1f} phút')
+    print(f'(Trung bình phut_lam_lai_simulated trên các ca lam_lai: {phut_lam_lai_tb:.1f} phút,'
+          f' trung vị {reqs.loc[reqs["ket_qua"] == "lam_lai", "phut_lam_lai_simulated"].median():.1f})')
 
 
 # ---------- Nhiệm vụ D · TV2 ----------
