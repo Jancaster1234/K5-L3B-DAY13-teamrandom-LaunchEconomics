@@ -58,7 +58,7 @@ Mỗi thành viên tự bổ sung họ tên, MSSV, email và đóng góp có b�
 ### Phần việc và đóng góp
 
 - Gắn nhãn 20 ca; chuẩn bị đặc tả chỉ số, event và báo cáo nhóm.
-- Bộ nhãn đã được cung cấp, chờ gửi TV3 nhập và đối chiếu; chưa có tỉ lệ đồng thuận.
+- Bộ nhãn độc lập đã nhập vào `report/team/bang_loi.md`; hai bộ nhãn trùng 17/20 ca (85%), 3 ca lệch đã thống nhất.
 
 ### Bằng chứng
 

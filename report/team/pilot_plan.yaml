@@ -44,12 +44,12 @@
 #   Yêu cầu hợp lệ = yêu cầu noi_dia hoặc hang_nang của 40 nhân viên đã bốc thăm, tạo từ bước 0.50, đã qua đủ 7 ngày theo dõi mở lại.
 #   Chỉ phân tích chỉ số chính khi đạt cả ba: đủ 20 nhân viên mỗi nhóm; mỗi nhân viên ≥ 299 yêu cầu hợp lệ;
 #   mỗi nhóm ≥ 5.980 yêu cầu hợp lệ. Thiếu một điều kiện thì chưa kết luận hiệu quả.
-#   Gia hạn (phương án đề xuất, chờ TV1 xác nhận): mỗi lần thêm 1 tuần, tối đa 2 lần (2027-01-22, rồi 2027-01-29), chỉ khi thiếu mẫu hoặc thiếu thời gian theo dõi.
+#   Gia hạn: mỗi lần thêm 1 tuần, tối đa 2 lần (2027-01-22, rồi 2027-01-29), chỉ khi thiếu mẫu hoặc thiếu thời gian theo dõi.
 #   Không gia hạn hay kết thúc sớm vì chỉ số chính đang thuận lợi hay bất lợi; không ai xem chênh lệch chỉ số chính giữa
 #   hai nhóm trước khi đạt điều kiện phân tích, kể cả khi đã gia hạn qua 2027-01-15. Đến 2027-01-29 vẫn thiếu thì ghi "chưa đủ bằng chứng",
 #   Giám đốc vận hành quyết định thiết kế lại. Nhân viên nghỉ giữa chừng vẫn được tính vào nhóm đã bốc thăm.
 #
-# Cách phân tích cuối (phương án đề xuất, chờ TV1 xác nhận; tính đến việc chia theo cụm nhân viên):
+# Cách phân tích cuối (tính đến việc chia theo cụm nhân viên):
 #   Không coi 11.960 yêu cầu là mẫu độc lập: đơn vị phân tích là nhân viên (cụm), không phải yêu cầu.
 #   Phương pháp chính: tính chỉ số chính cho từng nhân viên (40 tỉ lệ); trong mỗi depot lấy trung bình nhóm trợ lý trừ
 #   trung bình nhóm đối chứng, rồi gộp các depot theo trọng số số nhân viên (phân tầng theo depot, đúng cách bốc thăm);
@@ -59,14 +59,14 @@
 #   yêu cầu rồi chỉnh sai số cho tương quan trong cụm, nhưng với chỉ 40 cụm sai số chuẩn theo cụm dễ bị ước lượng thấp.
 #   Vì vậy chọn cấp nhân viên làm chính; hồi quy chỉ để kiểm tra độ vững. Hai cách lệch nhau thì báo cả hai, dùng kết quả chính.
 #
-# MDE khác ngưỡng ra quyết định (ngưỡng quyết định là phương án đề xuất, chờ TV1 xác nhận):
+# MDE khác ngưỡng ra quyết định:
 #   MDE 6 điểm là mức chênh thiết kế đủ mẫu để phát hiện với power 0,80; đây không phải ngưỡng để mở rộng.
 #   Đề xuất mở rộng khi đạt cả ba: chênh chỉ số chính > 0 có ý nghĩa ở alpha 0,05 (khoảng tin cậy 95% nằm trên 0);
 #   không luật dừng nào bị kích hoạt; chi phí cả hệ thống mỗi yêu cầu tính bằng phút đo thật < 12.000 đ.
 #   Không có ý nghĩa thì không kết luận "không có tác động" (power chỉ 0,64 nếu tác động thật là 5 điểm);
 #   Giám đốc vận hành chọn giữa No-go và thiết kế lại với nhiều cụm hơn.
 #
-# Thời gian xem lại: hai ngưỡng có mục đích khác nhau (mục tiêu 4,8 phút là đề xuất, chờ TV1 xác nhận).
+# Thời gian xem lại: hai ngưỡng có mục đích khác nhau.
 #   Mục tiêu thiết kế ≤ 4,8 phút mỗi lần: hoà vốn chi phí mỗi việc thành công của kịch bản B4 bất lợi (xem lại 100%,
 #   làm lại 15,3 phút/ca) [simulated], không phải hoà vốn của toàn hệ thống
 #   (5,1 phút chỉ đúng khi làm lại 9 phút/ca). Dùng để đặt kế hoạch giảm xem lại theo bậc.
