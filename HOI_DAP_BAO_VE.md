@@ -58,6 +58,9 @@ Nhóm thiết kế pilot cho mức chênh (MDE) 6 điểm: cần 859 mẫu hiệ
 **Trong đợt chạy thử, tỉ lệ yêu cầu bị khách mở lại trong 7 ngày là 4,25%. Ngưỡng an toàn trong luật dừng của nhóm có làm pilot dừng ngay tuần đầu không?** (câu gợi ý của đề)
 Không. Trong phạm vi pilot, tỉ lệ hiện tại là 3,97%. Luật dừng so với nhóm đối chứng (nhóm trợ lý cao hơn ≥ 2 điểm) kèm trần tuyệt đối 6%. Nếu đặt ngưỡng tuyệt đối 3% thì pilot sẽ dừng ngay tuần đầu.
 
+**Câu hội đồng 4mems đã hỏi: luật dừng 3 đặt ngưỡng 8.000 đ/việc thành công trên cả phạm vi, nhưng riêng `hang_nang` đã là 8.221 đ. Nếu `hang_nang` xấu đi thì số gộp vẫn dưới 8.000 đ, vậy luật này phát hiện được gì?**
+Nhóm nhận đây là chỗ cần sửa: `noi_dia` chiếm 824/982 yêu cầu và chỉ 2.696 đ, nên kéo số gộp xuống 3.414 đ [simulated] và che `hang_nang`. Đã sửa `pilot_plan.yaml`: tính chi phí tách theo `loai` (lấy `loai` từ event `request_created`) và thêm ngưỡng riêng `hang_nang` > 12.000 đ, tức đắt hơn nhân viên tự làm, trong 2 tuần liên tiếp thì PM trợ lý hoàn phí thu hẹp về `noi_dia`.
+
 **Khi một luật dừng bị kích hoạt, ai có quyền tắt trợ lý, mất bao lâu, và khách được phục vụ bằng gì?**
 Giám đốc vận hành bấm cờ tắt trợ lý, hiệu lực trong 30 phút; khách được phục vụ bằng luồng nhân viên tự làm như hiện nay. Riêng hoàn tiền trùng: chỉ cần 1 ca đã đối soát sổ cái xác nhận là tắt ngay.
 

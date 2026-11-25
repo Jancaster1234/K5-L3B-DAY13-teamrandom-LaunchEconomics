@@ -17,7 +17,7 @@ Nhóm teamrandom, lớp L3B; 4 thành viên và vai trò tại [TEAM.md](../../T
 
 ## 4. Kết quả
 
-Chi phí 4.472 đ/việc thành công [simulated]; trong đợt chạy thử, chỉ số chính 82,83% (994/1.200), mở lại 4,25% (51/1.200). Hồ sơ đề xuất Go có điều kiện cho pilot nội địa và hàng nặng; kết quả duyệt chéo chờ hội đồng.
+Chi phí 4.472 đ/việc thành công [simulated]; trong đợt chạy thử, chỉ số chính 82,83% (994/1.200), mở lại 4,25% (51/1.200). Hồ sơ đề xuất Go có điều kiện cho pilot nội địa và hàng nặng. Duyệt chéo Gate 2a: nhóm 4mems chấm 30/30 (C6 10 · C7 10 · C8 10), quyết định Go có điều kiện. Câu hỏi của hội đồng chỉ ra luật dừng chi phí chỉ tính trên số gộp (3.414 đ) nên không thấy riêng hang_nang (8.221 đ) [simulated]; nhóm đã thêm ngưỡng riêng hang_nang > 12.000 đ và theo dõi chi phí tách theo loai. Nhóm teamrandom chấm nhóm 4mems 30/30, Go có điều kiện.
 
 ## 5. Khó khăn và cách xử lý
 
