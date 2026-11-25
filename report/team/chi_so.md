@@ -38,7 +38,7 @@ Mỗi event mang `trace_id` và `request_id`; cần triển khai và kiểm tra 
 - % yêu cầu được mở bằng trợ lý (luật dừng 4): `suggestion_shown` trên `request_created` của nhân viên nhóm trợ lý.
 - Mở lại trong 7 ngày: `request_created`, `request_closed`, `request_reopened`; đếm yêu cầu mở lại trong 7 ngày sau đóng trên tổng yêu cầu đủ thời gian theo dõi.
 - Đơn hoàn sai tiền qua kiểm tra mẫu: `quality_sample_checked`; đếm đơn có số tiền lệch trên đơn được kiểm tra.
-- Chi phí mỗi việc thành công (luật dừng 3, E2): `agent_run_completed` (token, tool), `staff_review_decision` và `staff_rework_completed` (phút đo thật), chia số yêu cầu đóng không mở lại.
+- Chi phí mỗi việc thành công (luật dừng 3, E2): `agent_run_completed` (token, tool), `staff_review_decision` và `staff_rework_completed` (phút đo thật), chia số yêu cầu đóng không mở lại; tính cho cả phạm vi và tách theo `loai` (lấy từ `request_created`), vì `hang_nang` (8.221 đ [simulated]) bị `noi_dia` (2.696 đ) che trong số gộp.
 - Hoàn trùng (luật dừng 1): `refund_ledger_write`, cùng `request_id` có ≥ 2 bản ghi thành công.
 
 ## E2 · Rủi ro kinh tế
