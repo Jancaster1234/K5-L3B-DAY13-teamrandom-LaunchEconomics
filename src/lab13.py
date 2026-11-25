@@ -218,15 +218,18 @@ def nhiem_vu_d(reqs):
     print(f'b · Theo nhân viên, m = {m}: DE = {de_b:.2f}; n = {n5:,} × {de_b:.2f} = {n_b:,.0f} mỗi nhóm'
           f' → {nv_b} người mỗi nhóm, tổng {2 * nv_b} > {SO_NV}: {"không đủ người" if 2 * nv_b > SO_NV else "đủ"}')
 
-    # c) 20 nhân viên mỗi nhóm: n hiệu dụng < c / ICC
+    # c) 20 nhân viên mỗi nhóm: n hiệu dụng = c·m / (1 + (m − 1)·ICC) luôn < c / ICC.
+    #    c / ICC là giới hạn tiệm cận khi m (số yêu cầu mỗi cụm) tăng mãi, không bao giờ đạt tới.
     c = 20
     tran_c = c / ICC
-    print(f'c · {c} nhân viên mỗi nhóm: n hiệu dụng tối đa {c} / {ICC} = {tran_c:,.0f}'
-          f' {"<" if tran_c < n5 else "≥"} {n5:,}: {"không đạt" if tran_c < n5 else "đạt"}')
+    print(f'c · {c} nhân viên mỗi nhóm: n hiệu dụng luôn < {c} / {ICC} = {tran_c:,.0f}'
+          f' (giới hạn khi m tăng mãi) {"<" if tran_c < n5 else "≥"} {n5:,}:'
+          f' {"không đạt dù m lớn bao nhiêu" if tran_c < n5 else "đạt"}')
 
-    # d) 6 depot mỗi nhóm
+    # d) 6 depot mỗi nhóm: cùng giới hạn tiệm cận d / ICC
     d = 6
-    print(f'd · {d} depot mỗi nhóm: n hiệu dụng tối đa {d} / {ICC} = {d / ICC:,.0f}; chỉ {d} cụm < 20')
+    print(f'd · {d} depot mỗi nhóm: n hiệu dụng luôn < {d} / {ICC} = {d / ICC:,.0f}'
+          f' (giới hạn khi m tăng mãi); chỉ {d} cụm < 20')
 
     # e) mức chênh 6 điểm, 20 nhân viên mỗi nhóm: tìm m nhỏ nhất để c·m / DE ≥ n6
     n6 = co_mau(P_GOC, P_GOC + 0.06)
@@ -234,8 +237,9 @@ def nhiem_vu_d(reqs):
     while c * m_e / (1 + (m_e - 1) * ICC) < n6:
         m_e += 1
     de_e = 1 + (m_e - 1) * ICC
-    print(f'e · Mức chênh 6 điểm: {n6:,} mỗi nhóm; {c} người mỗi nhóm cần m ≥ {m_e} yêu cầu mỗi người'
-          f' (DE {de_e:.2f}, tổng {c * m_e:,} yêu cầu mỗi nhóm)')
+    print(f'e · Mức chênh 6 điểm: cần n hiệu dụng {n6:,} mỗi nhóm; {c} người mỗi nhóm cần m ≥ {m_e}'
+          f' yêu cầu mỗi người (DE {de_e:.2f}) → {c * m_e:,} yêu cầu thực tế mỗi nhóm,'
+          f' {2 * c * m_e:,} cả hai nhóm; n hiệu dụng đạt {c * m_e / de_e:,.0f}')
 
     # Power khi thiết kế cho 6 điểm (n = n6) nhưng tác động thật chỉ 5 điểm
     from statsmodels.stats.power import NormalIndPower
