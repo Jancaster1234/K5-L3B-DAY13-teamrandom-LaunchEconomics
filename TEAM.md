@@ -5,7 +5,7 @@
 - Tên nhóm: teamrandom
 - Lớp: L3B
 - Repo nhóm: `K5-L3B-DAY13-teamrandom-LaunchEconomics`
-- URL repo: https://github.com/Jancaster1234/K5-L3B-DAY13-teamrandom-LaunchEconomics · Nhánh nộp và commit chốt: chờ nhóm trưởng xác nhận
+- URL repo: https://github.com/Jancaster1234/K5-L3B-DAY13-teamrandom-LaunchEconomics · Nhánh nộp: `main` · Commit chốt nội dung bài làm: `35c9136` (commit sau đó chỉ ghi dòng này)
 
 ## Thành viên
 
