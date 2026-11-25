@@ -189,16 +189,85 @@ def nhiem_vu_b(runs, reqs):
 
 
 # ---------- Nhiệm vụ D · TV2 ----------
+P_GOC = 0.70     # baseline chỉ số chính
+ICC = 0.02
+SO_NV = 40       # tổng số nhân viên có thể chia
+
+
+def co_mau(p1, p2, alpha=0.05, power=0.8):
+    """Số yêu cầu mỗi nhóm để phát hiện chênh p1 → p2 (kiểm định hai tỉ lệ, hai phía)."""
+    from statistics import NormalDist
+    za, zb = NormalDist().inv_cdf(1 - alpha / 2), NormalDist().inv_cdf(power)
+    pb = (p1 + p2) / 2
+    return math.ceil((za * math.sqrt(2 * pb * (1 - pb))
+                      + zb * math.sqrt(p1 * (1 - p1) + p2 * (1 - p2))) ** 2 / (p2 - p1) ** 2)
+
+
 def nhiem_vu_d(reqs):
     """TV2 · D1 cỡ mẫu (a–e), power ở mức chênh 5 điểm, tỉ lệ mở lại 7 ngày hiện tại."""
-    # from statsmodels.stats.power import NormalIndPower
-    pass
+    print('\n=== D1 · Cỡ mẫu (baseline 0,70; alpha 0,05; power 0,8; ICC 0,02) ===')
+    # a) chia theo yêu cầu
+    n5 = co_mau(P_GOC, P_GOC + 0.05)
+    print(f'a · Chia theo yêu cầu, +5 điểm: {n5:,} yêu cầu mỗi nhóm')
+
+    # b) theo nhân viên, m = 75
+    m = 75
+    de_b = 1 + (m - 1) * ICC
+    n_b = math.ceil(n5 * de_b)
+    nv_b = math.ceil(n_b / m)
+    print(f'b · Theo nhân viên, m = {m}: DE = {de_b:.2f}; n = {n5:,} × {de_b:.2f} = {n_b:,.0f} mỗi nhóm'
+          f' → {nv_b} người mỗi nhóm, tổng {2 * nv_b} > {SO_NV}: {"không đủ người" if 2 * nv_b > SO_NV else "đủ"}')
+
+    # c) 20 nhân viên mỗi nhóm: n hiệu dụng < c / ICC
+    c = 20
+    tran_c = c / ICC
+    print(f'c · {c} nhân viên mỗi nhóm: n hiệu dụng tối đa {c} / {ICC} = {tran_c:,.0f}'
+          f' {"<" if tran_c < n5 else "≥"} {n5:,}: {"không đạt" if tran_c < n5 else "đạt"}')
+
+    # d) 6 depot mỗi nhóm
+    d = 6
+    print(f'd · {d} depot mỗi nhóm: n hiệu dụng tối đa {d} / {ICC} = {d / ICC:,.0f}; chỉ {d} cụm < 20')
+
+    # e) mức chênh 6 điểm, 20 nhân viên mỗi nhóm: tìm m nhỏ nhất để c·m / DE ≥ n6
+    n6 = co_mau(P_GOC, P_GOC + 0.06)
+    m_e = 1
+    while c * m_e / (1 + (m_e - 1) * ICC) < n6:
+        m_e += 1
+    de_e = 1 + (m_e - 1) * ICC
+    print(f'e · Mức chênh 6 điểm: {n6:,} mỗi nhóm; {c} người mỗi nhóm cần m ≥ {m_e} yêu cầu mỗi người'
+          f' (DE {de_e:.2f}, tổng {c * m_e:,} yêu cầu mỗi nhóm)')
+
+    # Power khi thiết kế cho 6 điểm (n = n6) nhưng tác động thật chỉ 5 điểm
+    from statsmodels.stats.power import NormalIndPower
+    from statsmodels.stats.proportion import proportion_effectsize
+    h = proportion_effectsize(P_GOC + 0.05, P_GOC)
+    pw = NormalIndPower().power(effect_size=h, nobs1=n6, alpha=0.05, ratio=1.0)
+    print(f'Power khi n = {n6} mỗi nhóm mà tác động thật chỉ 5 điểm: {pw:.2f}')
+
+    # Tỉ lệ mở lại 7 ngày hiện tại (dùng để đặt ngưỡng luật dừng an toàn)
+    pv = reqs[reqs['loai'].isin(PHAM_VI)]
+    print(f'mo_lai_trong_7_ngay toàn mẫu: {reqs["mo_lai_trong_7_ngay"].mean() * 100:.2f}%'
+          f' ({reqs["mo_lai_trong_7_ngay"].sum()}/{len(reqs):,})'
+          f' · phạm vi noi_dia + hang_nang: {pv["mo_lai_trong_7_ngay"].mean() * 100:.2f}%'
+          f' ({pv["mo_lai_trong_7_ngay"].sum()}/{len(pv):,})')
+    return dict(n5=n5, de_b=de_b, n_b=n_b, tran_c=tran_c, n6=n6, m_e=m_e, de_e=de_e, power_5=pw)
 
 
 # ---------- Nhiệm vụ E1 · TV2 ----------
 def nhiem_vu_e(reqs):
     """TV2 · E1 ba chỉ số tính thử: chính, dùng, an toàn."""
-    pass
+    print('\n=== E1 · Ba chỉ số tính thử trên đợt chạy thử (không có nhóm đối chứng) ===')
+    dat = (reqs['dong_trong_24h'] == 1) & (reqs['mo_lai_trong_7_ngay'] == 0)
+    chinh = dat.mean()
+    xem = reqs[reqs['duoc_xem_lai'] == 1]
+    so_bo_qua = xem['quyet_dinh_xem_lai'].isin(['sua', 'bo']).sum()
+    bo_qua = so_bo_qua / len(xem)
+    an_toan = (reqs['mo_lai_trong_7_ngay'] == 1).mean()
+    print(f'Chính · đóng trong 24 giờ và không mở lại 7 ngày: {chinh * 100:.2f}% ({dat.sum()}/{len(reqs):,})')
+    print(f'Dùng · tỉ lệ bỏ qua gợi ý (sua + bo) / được xem lại: {bo_qua * 100:.2f}% ({so_bo_qua}/{len(xem)})')
+    print(f'An toàn · mở lại trong 7 ngày: {an_toan * 100:.2f}%'
+          f' ({(reqs["mo_lai_trong_7_ngay"] == 1).sum()}/{len(reqs):,})')
+    return dict(chinh=chinh, bo_qua=bo_qua, an_toan=an_toan)
 
 
 if __name__ == '__main__':
