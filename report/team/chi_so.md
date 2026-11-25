@@ -2,32 +2,36 @@
 
 ## E1 · Đặc tả chỉ số
 
-| Loại | Chỉ số | Công thức | Tính thử trên 1.200 yêu cầu |
+Chỉ số trong đợt chạy thử được tính trên 1.200 yêu cầu; không có nhóm đối chứng để suy ra tác động.
+
+| Loại | Chỉ số | Công thức | Kết quả đợt chạy thử |
 | --- | --- | --- | --- |
-| Chính (kết quả) | % yêu cầu đóng trong 24 giờ và không mở lại trong 7 ngày | `dong_trong_24h` bằng 1 và `mo_lai_trong_7_ngay` bằng 0, chia tổng số yêu cầu | ... |
-| Dùng | Tỉ lệ bỏ qua gợi ý | `quyet_dinh_xem_lai` là `sua` hoặc `bo`, chia số yêu cầu được xem lại | ... |
-| An toàn | Tỉ lệ lỗi lọt đến khách | `mo_lai_trong_7_ngay` bằng 1, chia tổng số yêu cầu | ... |
-| Dùng | Nhóm tự đề xuất: ... | ... | Không cần tính |
-| An toàn | Nhóm tự đề xuất: ... | ... | Không cần tính |
+| Chính | Đóng trong 24 giờ và không mở lại trong 7 ngày | Số yêu cầu thỏa cả hai điều kiện / tổng yêu cầu | 82,83% (994/1.200) |
+| Dùng | Tỉ lệ bỏ qua gợi ý | Số yêu cầu có quyết định `sua` hoặc `bo` / số yêu cầu được xem lại | 27,12% (48/177) |
+| An toàn | Tỉ lệ mở lại trong 7 ngày | Số yêu cầu mở lại trong 7 ngày / tổng yêu cầu | 4,25% (51/1.200) |
+| Dùng | Tỉ lệ chấp nhận gợi ý | Số yêu cầu được xem lại có quyết định chấp nhận / số yêu cầu được xem lại | Chưa tính |
+| An toàn | Tỉ lệ lỗi phát hiện qua kiểm tra mẫu | Số yêu cầu kiểm tra mẫu có lỗi / số yêu cầu được kiểm tra mẫu mỗi tuần | Chưa tính |
 
-Viết "chỉ số trong đợt chạy thử là …", không viết "trợ lý đã nâng chỉ số": đợt chạy thử không có nhóm đối chứng.
+## Danh sách event đề xuất
 
-## Danh sách event
-
-Ít nhất sáu event, mỗi event có `trace_id` để nối với trace của agent.
+Mỗi event mang `trace_id` và `request_id`; cần triển khai và kiểm tra dữ liệu trước khi đo. Đếm yêu cầu duy nhất, đối chiếu mốc 24 giờ và theo dõi đủ 7 ngày; yêu cầu chưa đủ thời gian theo dõi không đưa vào mẫu kết quả đã trưởng thành.
 
 | Event | Ai tạo | Thuộc tính chính | Thời điểm |
 | --- | --- | --- | --- |
-| ... | ... | ..., trace_id | ... |
-| ... | ... | ..., trace_id | ... |
-| ... | ... | ..., trace_id | ... |
-| ... | ... | ..., trace_id | ... |
-| ... | ... | ..., trace_id | ... |
-| ... | ... | ..., trace_id | ... |
+| `request_created` | Hệ thống yêu cầu | `trace_id`, `request_id`, thời gian tạo, loại | Khi nhận yêu cầu |
+| `suggestion_generated` | Trợ lý | `trace_id`, `request_id`, mã gợi ý | Khi tạo gợi ý |
+| `staff_review_decision` | Ứng dụng nhân viên | `trace_id`, `request_id`, quyết định, thời gian và thời lượng xem lại | Khi hoàn tất xem lại |
+| `request_closed` | Hệ thống yêu cầu | `trace_id`, `request_id`, thời gian đóng | Khi đóng yêu cầu |
+| `request_reopened` | Hệ thống yêu cầu | `trace_id`, `request_id`, thời gian mở lại | Khi mở lại |
+| `staff_rework_completed` | Ứng dụng nhân viên | `trace_id`, `request_id`, thời lượng làm lại | Khi hoàn tất làm lại |
+| `quality_sample_checked` | Công cụ kiểm tra chất lượng | `trace_id`, `request_id`, kết quả lỗi, thời gian kiểm tra | Khi kiểm tra mẫu |
 
-**Kiểm tra chéo:** với mỗi chỉ số ở bảng E1, ghi event dùng để tính. Chỉ số nào không tính được từ danh sách event thì chưa đo được.
+**Kiểm tra chéo:**
 
-- ...
+- Chỉ số chính: `request_created`, `request_closed`, `request_reopened`; dùng thời gian tạo và đóng, kiểm tra không mở lại trong 7 ngày sau đóng.
+- Bỏ qua gợi ý và chấp nhận gợi ý: `staff_review_decision`; tử số theo quyết định, mẫu số là yêu cầu có quyết định xem lại.
+- Mở lại trong 7 ngày: `request_created`, `request_closed`, `request_reopened`; đếm yêu cầu mở lại trong 7 ngày sau đóng trên tổng yêu cầu đủ thời gian theo dõi.
+- Lỗi kiểm tra mẫu: `quality_sample_checked`; đếm yêu cầu có lỗi trên yêu cầu được kiểm tra.
 
 ## E2 · Rủi ro kinh tế
 
